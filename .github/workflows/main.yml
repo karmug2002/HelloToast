@@ -37,6 +37,7 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
           cache: gradle
+        
       - name: Build APK
         run: bash ./gradlew assembleDebug --stacktrace
       - name: Upload APK
@@ -51,7 +52,9 @@ jobs:
       - name: Generate build number
         uses: einaregilsson/build-number@v3
         with:
-          token: ${{secrets.github_token}}        
+          token: ${{secrets.github_token}}      
+      - name: Release APK
+        if: startsWith(github.ref, 'refs/tags/v')
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -69,32 +72,4 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: apk/app-debug.apk
           asset_name: HelloToast.apk
-          asset_content_type: application/zip
-  release:
-    name: Release APK
-    needs: apk
-    if: startsWith(github.ref, 'refs/tags/v')
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download APK from build
-        uses: actions/download-artifact@v1
-        with:
-          name: apk  
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }} 
-      - name: Upload Release APK
-        id: upload_release_asset
-        uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: apk/app-debug.apk
-          asset_name: MensaApp.apk
           asset_content_type: application/zip
