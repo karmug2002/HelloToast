@@ -55,10 +55,6 @@ jobs:
           token: ${{secrets.github_token}}    
       - name: Print new build number
         run: echo "Build number is $BUILD_NUMBER"
-      - name: Generate semantic version
-        uses: LeoVS09/semver-release-action@v3
-        with:
-          version:  ${{ github.ref }}
           
       - name: Create Release
         id: create_release
@@ -66,7 +62,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
         with:
-          tag_name:  ${{ github.ref }}
+          tag_name:  ${{ steps.buildnumber.outputs.build_number }}
           release_name: Release ${{ github.ref }}
       - name: Upload Release APK
         id: upload_release_asset
