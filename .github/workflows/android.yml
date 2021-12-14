@@ -20,7 +20,9 @@ jobs:
         distribution: 'adopt'
         cache: gradle
 
+    - name: cd into directory
+      run: cd HelloToast
     - name: Grant execute permission for gradlew
-      run: chmod +x HelloToast/gradlew
+      run: chmod +x gradlew
     - name: Build with Gradle
-      run: HelloToast/./gradlew build
+      run: ./gradlew build
