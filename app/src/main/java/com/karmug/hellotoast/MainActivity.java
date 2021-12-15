@@ -18,7 +18,7 @@ import basepackage.SemManager;
 public class MainActivity extends AppCompatActivity
 {
 
-    private int count = 0;
+    private int count = 1;
     private TextView countText;
     private SemManager cseManager;
     private TextView outputText;
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity
         Button countButton = findViewById(R.id.count_button);
         countButton.setOnClickListener(this::count);
 
-        Button zeroButton = findViewById(R.id.zero_button);
+        Button zeroButton = findViewById(R.id.reset_button);
         zeroButton.setOnClickListener(this::zero);
 
         InputStream inputStream = getResources().openRawResource(R.raw.csedata);
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity
 
     private void zero(View view)
     {
-        count=0;
+        count=1;
         countText.setText(String.valueOf(count));
         outputText.setText(R.string.output);
     }
@@ -72,7 +72,11 @@ public class MainActivity extends AppCompatActivity
     {
         if(count>0 && count<9){
             ArrayMap<ArrayList<String>, ArrayList<Float>> semInfo = cseManager.getSemInfoForOneSem(count);
-            outputText.setText(String.valueOf("The current dep is cse and the current semester is: "+count+"\n"+semInfo.toString()));
+            outputText.setText("The current dep is CSE and the current semester is: " + count + "\n" + semInfo.toString());
+        }
+        else
+        {
+            outputText.setText(String.format("There are only %d semesters in this department!",cseManager.getNumOfSems()));
         }
     }
 

@@ -20,7 +20,7 @@ public final class SemManager
 	
 	public SemManager(InputStream inputStream)
 	{
-		semesters = new HashMap<String,Semester>();
+		semesters = new HashMap<>();
 		csvParser = new CSVParser(inputStream);
 		createSemObjects();
 	}
@@ -52,6 +52,10 @@ public final class SemManager
 		Semester selectedSem = semesters.get(sem);
 		return selectedSem.getCGPA();	//return the cgpa for selected semester.
 	}
-	
+
+	public int getNumOfSems()
+	{
+		return semesters.size();
+	}
 
 }
