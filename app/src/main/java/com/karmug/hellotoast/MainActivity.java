@@ -2,7 +2,6 @@ package com.karmug.hellotoast;
 
 import android.os.Bundle;
 import android.util.ArrayMap;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -10,10 +9,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import basepackage.SemManager;
 
@@ -38,6 +35,9 @@ public class MainActivity extends AppCompatActivity
         Button toastButton = findViewById(R.id.toast_button);
         toastButton.setOnClickListener(this::showToast);
 
+        Button showButton = findViewById(R.id.show_button);
+        showButton.setOnClickListener(this::show);
+
         Button countButton = findViewById(R.id.count_button);
         countButton.setOnClickListener(this::count);
 
@@ -61,15 +61,19 @@ public class MainActivity extends AppCompatActivity
         countText.setText(String.valueOf(count));
         outputText.setText(R.string.output);
     }
+
     private void count(View view)
     {
         ++count;
         countText.setText(String.valueOf(count));
+    }
 
-        ArrayMap<ArrayList<String>, ArrayList<Float>> semInfo = cseManager.getSemInfoForOneSem(1);
-        outputText.setText(semInfo.toString());
-
-        //Log.i("MainActivity", String.valueOf());
+    private void show(View view)
+    {
+        if(count>0 && count<9){
+            ArrayMap<ArrayList<String>, ArrayList<Float>> semInfo = cseManager.getSemInfoForOneSem(count);
+            outputText.setText(String.valueOf("The current dep is cse and the current semester is: "+count+"\n"+semInfo.toString()));
+        }
     }
 
 }
