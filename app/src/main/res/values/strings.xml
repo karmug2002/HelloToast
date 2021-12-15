@@ -5,4 +5,5 @@
     <string name="text">0</string>
     <string name="toast_message">My name is Karmugilan</string>
     <string name="zero_button">Zero</string>
+    <string name="output">tap the button to see the output</string>
 </resources>

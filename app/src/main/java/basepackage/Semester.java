@@ -54,6 +54,11 @@ final  class Semester
 		return totalAcquiredCP/totalGivenCP;
 	}
 
+	public ArrayMap<ArrayList<String>, ArrayList<Float>> getSemInfo()
+	{
+		return semInfo;
+	}
+
 	@Override
 	public String toString()  //automatically called by the println fn.
 	{

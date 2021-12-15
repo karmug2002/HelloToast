@@ -16,6 +16,7 @@ public final class SemManager
 	//field variables
 	private HashMap<String,Semester> semesters;//Stores semester objects mapped to the semester name.
 	private CSVParser csvParser;
+	private ArrayMap<String, ArrayMap<ArrayList<String>, ArrayList<Float>>> semestersInfo;
 	
 	public SemManager(InputStream inputStream)
 	{
@@ -26,7 +27,7 @@ public final class SemManager
 	
 	private void createSemObjects()
 	{
-		ArrayMap<String, ArrayMap<ArrayList<String>, ArrayList<Float>>> semestersInfo = csvParser.getSemesterInfos(); //get the semester Infos!!
+		semestersInfo = csvParser.getSemesterInfos(); //get the semester Infos!!
 
 		for(int k = 1; k<semestersInfo.size()+1; k++)
 		{
@@ -36,13 +37,19 @@ public final class SemManager
 		}
 		
 	}
-	
+
+	public ArrayMap<ArrayList<String>, ArrayList<Float>> getSemInfoForOneSem(int whichSem)
+	{
+		String sem = "Semester "+whichSem;
+		Semester selectedSem = semesters.get(sem);
+		return selectedSem.getSemInfo();
+	}
+
+
 	public float getCGPAForOneSem(int whichSem) //this method returns cgpa for the selected semester
 	{
 		String sem = "Semester "+whichSem;
 		Semester selectedSem = semesters.get(sem);
-		System.out.println("Current Semester is : "+ sem);
-		//System.out.println(selectedSem);
 		return selectedSem.getCGPA();	//return the cgpa for selected semester.
 	}
 	
