@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity
     private TextView countText;
     private SemManager cseManager;
     private TextView outputText;
+    private int semCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity
 
         InputStream inputStream = getResources().openRawResource(R.raw.csedata);
         cseManager = new SemManager(inputStream);
+        semCount = cseManager.getNumOfSems();
 
     }
 
@@ -70,13 +72,15 @@ public class MainActivity extends AppCompatActivity
 
     private void show(View view)
     {
-        if(count>0 && count<9){
+
+        if(count<semCount)
+        {
             ArrayMap<ArrayList<String>, ArrayList<Float>> semInfo = cseManager.getSemInfoForOneSem(count);
             outputText.setText("The current dep is CSE and the current semester is: " + count + "\n" + semInfo.toString());
         }
         else
         {
-            outputText.setText(String.format("There are only %d semesters in this department!\n Press the reset Button",cseManager.getNumOfSems()));
+            outputText.setText(String.format("There are only %d semesters in this department!\n Press the reset Button",semCount));
         }
     }
 

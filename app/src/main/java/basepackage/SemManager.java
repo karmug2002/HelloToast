@@ -14,13 +14,13 @@ import java.util.HashMap;
 public final class SemManager
 {
 	//field variables
-	private HashMap<String,Semester> semesters;//Stores semester objects mapped to the semester name.
+	private ArrayMap<String,Semester> semesters;//Stores semester objects mapped to the semester name.
 	private CSVParser csvParser;
 	private ArrayMap<String, ArrayMap<ArrayList<String>, ArrayList<Float>>> semestersInfo;
 	
 	public SemManager(InputStream inputStream)
 	{
-		semesters = new HashMap<>();
+		semesters = new ArrayMap<>();
 		csvParser = new CSVParser(inputStream);
 		createSemObjects();
 	}
