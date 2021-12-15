@@ -50,6 +50,13 @@ jobs:
     needs: apk
     runs-on: ubuntu-latest
     steps:
+      - name: Generate build number
+        id: buildnumber
+        uses: einaregilsson/build-number@v3
+        with:
+          token: ${{secrets.github_token}}    
+      - name: Print new build number
+        run: echo "Build number is $BUILD_NUMBER"
       - name: Download APK from build
         uses: actions/download-artifact@v1
         with:
@@ -60,8 +67,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }} 
+          tag_name: main
+          release_name: Release V ${{ steps.buildnumber.outputs.build_number }} 
       - name: Upload Release APK
         id: upload_release_asset
         uses: actions/upload-release-asset@v1.0.1
