@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity
         }
         else
         {
-            outputText.setText(String.format("There are only %d semesters in this department!",cseManager.getNumOfSems()));
+            outputText.setText(String.format("There are only %d semesters in this department!\n Press the reset Button",cseManager.getNumOfSems()));
         }
     }
 
