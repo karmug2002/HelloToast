@@ -14,7 +14,7 @@
         android:text="@string/text"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="96sp"
+        android:textSize="48sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -62,15 +62,14 @@
         android:id="@+id/reset_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="36dp"
         android:background="@color/purple_700"
         android:text="@string/zero_button"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/show_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.098"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_count"
-        app:layout_constraintVertical_bias="0.4" />
+        app:layout_constraintHorizontal_bias="0.099"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView_output"
@@ -78,16 +77,18 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
         android:text="@string/output"
+        android:textAlignment="center"
+        android:textAllCaps="true"
         android:textColor="#880E4F"
         android:textSize="16sp"
+        android:textStyle="bold|italic"
         app:layout_constraintBottom_toTopOf="@+id/textView_count"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toast_button"
-        app:layout_constraintVertical_bias="0.047" />
+        app:layout_constraintVertical_bias="0.066" />
 
     <Button
         android:id="@+id/count_button"

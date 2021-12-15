@@ -67,14 +67,12 @@ public class MainActivity extends AppCompatActivity
 
     private void count(View view)
     {
-
         if(count<semCount)
         {
             ++count;
             countText.setText(String.valueOf(count));
         }
         Log.i("MainActivity",String.valueOf(semCount));
-
     }
 
     private void show(View view)
