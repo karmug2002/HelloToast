@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity
     {
         count=0;
         countText.setText(String.valueOf(count));
-        outputText.setText(R.string.zero_button);
+        outputText.setText(R.string.output);
     }
     private void count(View view)
     {
