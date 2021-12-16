@@ -1,13 +1,6 @@
 name: Minimal Android CI Workflow
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-    tags:
-      - 'v*'
+on: [push, pull_request]
 
 jobs:   
   test:
@@ -69,7 +62,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
         with:
           tag_name: build-V1.0.${{ steps.buildnumber.outputs.build_number }}
-          release_name: Release V1.0.${{ steps.buildnumber.outputs.build_number }} 
+          release_name: Cgpa v.1.0.${{ steps.buildnumber.outputs.build_number }} 
       - name: Upload Release APK
         id: upload_release_asset
         uses: actions/upload-release-asset@v1.0.1
@@ -78,5 +71,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: apk/app-debug.apk
-          asset_name: HelloToast.apk
+          asset_name: CGPACalculator.apk
           asset_content_type: application/zip
