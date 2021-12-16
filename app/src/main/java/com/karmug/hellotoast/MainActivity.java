@@ -1,10 +1,12 @@
 package com.karmug.hellotoast;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.util.ArrayMap;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,12 +20,16 @@ import basepackage.SemManager;
 
 public class MainActivity extends AppCompatActivity
 {
-
     private int count = 1;
     private TextView countText;
     private SemManager cseManager;
-    private TextView outputText;
     private int semCount;
+    private TextView semOutput;
+    private EditText input;
+    private TextView resultTextView;
+    private  ArrayMap<ArrayList<String>, ArrayList<Float>> semInfo;
+    private ArrayList<Float> userInputs;
+    private float cgpa=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -31,25 +37,27 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        countText = findViewById(R.id.textView_count);
-        outputText = findViewById(R.id.textView_output);
 
-        Button toastButton = findViewById(R.id.toast_button);
-        toastButton.setOnClickListener(this::showToast);
+        semOutput = findViewById(R.id.sem_output);
+        input = findViewById(R.id.input);
+        countText = findViewById(R.id.count);
+        resultTextView = findViewById(R.id.result);
 
-        Button showButton = findViewById(R.id.show_button);
-        showButton.setOnClickListener(this::show);
 
-        Button countButton = findViewById(R.id.count_button);
+        Button calculate = findViewById(R.id.calculate);
+        calculate.setOnClickListener(this::calculate);
+
+
+        Button countButton = findViewById(R.id.countButton);
         countButton.setOnClickListener(this::count);
 
-        Button zeroButton = findViewById(R.id.reset_button);
-        zeroButton.setOnClickListener(this::zero);
+        Button resetButton = findViewById(R.id.resetButton);
+        resetButton.setOnClickListener(this::reset);
 
         InputStream inputStream = getResources().openRawResource(R.raw.csedata);
         cseManager = new SemManager(inputStream);
         semCount = cseManager.getNumOfSems();
-
+        //givenCPS = new ArrayList<>();
     }
 
     private void showToast(View view)
@@ -58,34 +66,77 @@ public class MainActivity extends AppCompatActivity
        myToast.show();
     }
 
-    private void zero(View view)
+    private void reset(View view)
     {
         count=1;
         countText.setText(String.valueOf(count));
-        outputText.setText(R.string.output);
+        resultTextView.setText(R.string.result);
+        semOutput.setText(R.string.output);
+        cgpa=0;
+        semInfo=null;
+        userInputs=null;
+
     }
 
     private void count(View view)
     {
         if(count<semCount)
         {
-            ++count;
+            count++;
             countText.setText(String.valueOf(count));
+            semInfo = cseManager.getSemInfoForOneSem(count);
+            semOutput.setText(makeString());
         }
-        Log.i("MainActivity",String.valueOf(semCount));
+        //Log.i("MainActivity",String.valueOf(semCount));
     }
 
-    private void show(View view)
+    private ArrayList<Float> parseFloat(String s)
     {
+        ArrayList<Float> givenCps = new ArrayList<>();
+        String[] strings = s.split(",");
+        for(String strs : strings)
+        {
+            givenCps.add(Float.parseFloat(strs));
+        }
+        return givenCps;
+    }
 
+    private String makeString()
+    {
+        ArrayList<String> semName = semInfo.keyAt(0);
+        String name = "";
+        for(String s : semName)
+        {
+            name  = name + " " + s + "\n" ;
+        }
+        return name+" \n "+"The current semester is : "+count;
+    }
+
+    private void calculate(View view)
+    {
         if(count<=semCount)
         {
-            ArrayMap<ArrayList<String>, ArrayList<Float>> semInfo = cseManager.getSemInfoForOneSem(count);
-            outputText.setText("The current dep is CSE and the current semester is: " + count + "\n" + semInfo.toString());
-        }
-        else
-        {
-            outputText.setText(String.format("There are only %d semesters in this department!\n Press the reset Button",semCount));
+            semInfo = cseManager.getSemInfoForOneSem(count);
+            semOutput.setText(makeString());
+            Editable inputText = input.getText();
+            Log.i("MainActivity",makeString());
+            try {
+                userInputs = parseFloat(inputText.toString());
+            }
+            catch (Exception e)
+            {
+                resultTextView.setText("please enter your result correctly!");
+            }
+            cgpa = cseManager.getCGPAForOneSem(count, userInputs);
+            Log.i("CGPA ", String.valueOf(cgpa));
+            if(cgpa>0)
+            {
+                resultTextView.setText("Your CGPA is : " + String.valueOf(cgpa));
+            }
+            else
+            {
+                resultTextView.setText("Please Enter your CPS!!");
+            }
         }
 
     }

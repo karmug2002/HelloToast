@@ -1,10 +1,10 @@
 package basepackage;
 
 import android.util.ArrayMap;
+import android.util.Log;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * This class will manage the semester objects.
@@ -42,14 +42,21 @@ public final class SemManager
 	{
 		String sem = "Semester "+whichSem;
 		Semester selectedSem = semesters.get(sem);
+		//Log.i("SemManager",semesters.get("Semester 8").toString());
 		return selectedSem.getSemInfo();
 	}
 
 
-	public float getCGPAForOneSem(int whichSem) //this method returns cgpa for the selected semester
+	public void setGivenCPS(ArrayList<Float> userInputs,Semester semester) {
+		 semester.setUserInput(userInputs);
+	}
+
+
+	public float getCGPAForOneSem(int whichSem,ArrayList<Float> userInputs) //this method returns cgpa for the selected semester
 	{
 		String sem = "Semester "+whichSem;
 		Semester selectedSem = semesters.get(sem);
+		setGivenCPS(userInputs,selectedSem);
 		return selectedSem.getCGPA();	//return the cgpa for selected semester.
 	}
 

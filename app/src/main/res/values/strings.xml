@@ -1,11 +1,14 @@
 <resources>
-    <string name="app_name">HelloToast</string>
+    <string name="app_name">CGPACalculator</string>
     <string name="toast_button">Toast</string>
     <string name="count_button">count</string>
     <string name="text">1</string>
     <string name="toast_message">My name is Karmugilan</string>
-    <string name="zero_button">Reset</string>
-    <string name="output">Tap the Show button to see the output\n and press the count button to change the semester\n
+    <string name="reset_button">Reset</string>
+    <string name="output">Press Caclulate the button to see the output\n and press the count button to change the semester\n
         and press reset button to reset </string>
-    <string name="show_button">Show</string>
+    <string name="cal_button">calculate</string>
+    <string name="zero">0</string>
+    <string name="hint_text">Enter your cps one by one separated by , </string>
+    <string name="result">Result: </string>
 </resources>
