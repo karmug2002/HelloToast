@@ -1,4 +1,4 @@
-package com.karmug.hellotoast;
+package com.karmug.CGPACalculator;
 
 import org.junit.Test;
 
