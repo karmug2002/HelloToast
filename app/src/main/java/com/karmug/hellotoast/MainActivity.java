@@ -1,5 +1,4 @@
 package com.karmug.hellotoast;
-
 import android.os.Bundle;
 import android.text.Editable;
 import android.util.ArrayMap;
@@ -11,6 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -62,8 +63,8 @@ public class MainActivity extends AppCompatActivity
 
     private void showToast(View view)
     {
-       Toast myToast = Toast.makeText(this,R.string.toast_message,Toast.LENGTH_SHORT);
-       myToast.show();
+        Toast myToast = Toast.makeText(this,R.string.toast_message,Toast.LENGTH_SHORT);
+        myToast.show();
     }
 
     private void reset(View view)
