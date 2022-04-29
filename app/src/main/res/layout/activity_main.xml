@@ -13,16 +13,14 @@
         android:id="@+id/sem_output"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
         android:text="@string/output"
         android:textColor="#5D4037"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/result"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.48"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.342" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/calculate"
@@ -75,7 +73,7 @@
         android:id="@+id/input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="92dp"
+        android:layout_marginBottom="40dp"
         android:ems="10"
         android:hint="@string/hint_text"
         android:inputType="number"
@@ -98,4 +96,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="92dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/TotalCgpa"
+        app:layout_constraintBottom_toTopOf="@+id/countButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/count" />
 </androidx.constraintlayout.widget.ConstraintLayout>

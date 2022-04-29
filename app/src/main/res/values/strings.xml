@@ -11,4 +11,5 @@
     <string name="zero">0</string>
     <string name="hint_text">Enter your cps one by one separated by , </string>
     <string name="result">Result: </string>
+    <string name="TotalCgpa">Total</string>
 </resources>

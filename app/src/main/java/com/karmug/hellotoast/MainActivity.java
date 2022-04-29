@@ -28,9 +28,10 @@ public class MainActivity extends AppCompatActivity
     private TextView semOutput;
     private EditText input;
     private TextView resultTextView;
-    private  ArrayMap<ArrayList<String>, ArrayList<Float>> semInfo;
+    private ArrayMap<ArrayList<String>, ArrayList<Float>> semInfo;
     private ArrayList<Float> userInputs;
-    private float cgpa=0;
+    private float cgpa = 0;
+    private float totalAverage = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -55,6 +56,9 @@ public class MainActivity extends AppCompatActivity
         Button resetButton = findViewById(R.id.resetButton);
         resetButton.setOnClickListener(this::reset);
 
+        Button totalButton = findViewById(R.id.total);
+        totalButton.setOnClickListener(this::totalButton);
+
         InputStream inputStream = getResources().openRawResource(R.raw.csedata);
         cseManager = new SemManager(inputStream);
         semCount = cseManager.getNumOfSems();
@@ -69,14 +73,21 @@ public class MainActivity extends AppCompatActivity
 
     private void reset(View view)
     {
-        count=1;
+        count = 1;
         countText.setText(String.valueOf(count));
         resultTextView.setText(R.string.result);
         semOutput.setText(R.string.output);
-        cgpa=0;
+        cgpa = 0;
+        totalAverage = 0;
         semInfo=null;
         userInputs=null;
 
+    }
+
+    private void totalButton(View view)
+    {
+        float total = totalAverage/count;
+        resultTextView.setText("Your CGPA is : " + String.valueOf(total));
     }
 
     private void count(View view)
@@ -121,14 +132,19 @@ public class MainActivity extends AppCompatActivity
             semOutput.setText(makeString());
             Editable inputText = input.getText();
             Log.i("MainActivity",makeString());
-            try {
+            try
+            {
                 userInputs = parseFloat(inputText.toString());
             }
             catch (Exception e)
             {
                 resultTextView.setText("please enter your result correctly!");
             }
+
+            // Calculating the cgpa here!!
             cgpa = cseManager.getCGPAForOneSem(count, userInputs);
+            totalAverage += cgpa;
+
             Log.i("CGPA ", String.valueOf(cgpa));
             if(cgpa>0)
             {
