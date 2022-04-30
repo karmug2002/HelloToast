@@ -1,4 +1,5 @@
 package com.karmug.hellotoast;
+
 import android.os.Bundle;
 import android.text.Editable;
 import android.util.ArrayMap;
@@ -11,13 +12,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-
-
 import java.io.InputStream;
 import java.util.ArrayList;
 
 import basepackage.SemManager;
-
 
 public class MainActivity extends AppCompatActivity
 {
@@ -39,16 +37,13 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         semOutput = findViewById(R.id.sem_output);
         input = findViewById(R.id.input);
         countText = findViewById(R.id.count);
         resultTextView = findViewById(R.id.result);
 
-
         Button calculate = findViewById(R.id.calculate);
         calculate.setOnClickListener(this::calculate);
-
 
         Button countButton = findViewById(R.id.countButton);
         countButton.setOnClickListener(this::count);
@@ -79,15 +74,15 @@ public class MainActivity extends AppCompatActivity
         semOutput.setText(R.string.output);
         cgpa = 0;
         totalAverage = 0;
-        semInfo=null;
-        userInputs=null;
-
+        semInfo = null;
+        userInputs = null;
     }
 
     private void totalButton(View view)
     {
         float total = totalAverage/count;
-        resultTextView.setText("Your CGPA is : " + String.valueOf(total));
+        Log.e("Total: ", String.valueOf(total));
+        resultTextView.setText("Your Total Average CGPA is : " + String.valueOf(total));
     }
 
     private void count(View view)
@@ -106,10 +101,12 @@ public class MainActivity extends AppCompatActivity
     {
         ArrayList<Float> givenCps = new ArrayList<>();
         String[] strings = s.split(",");
+
         for(String strs : strings)
         {
             givenCps.add(Float.parseFloat(strs));
         }
+
         return givenCps;
     }
 
@@ -117,10 +114,12 @@ public class MainActivity extends AppCompatActivity
     {
         ArrayList<String> semName = semInfo.keyAt(0);
         String name = "";
+
         for(String s : semName)
         {
             name  = name + " " + s + "\n" ;
         }
+
         return name+" \n "+"The current semester is : "+count;
     }
 
@@ -131,7 +130,7 @@ public class MainActivity extends AppCompatActivity
             semInfo = cseManager.getSemInfoForOneSem(count);
             semOutput.setText(makeString());
             Editable inputText = input.getText();
-            Log.i("MainActivity",makeString());
+            //Log.i("MainActivity",makeString());
             try
             {
                 userInputs = parseFloat(inputText.toString());
@@ -142,8 +141,13 @@ public class MainActivity extends AppCompatActivity
             }
 
             // Calculating the cgpa here!!
+            float temp = cgpa;
             cgpa = cseManager.getCGPAForOneSem(count, userInputs);
-            totalAverage += cgpa;
+            if(cgpa != temp)
+            {
+                totalAverage += cgpa;
+                Log.w("Total cgpa: ",String.valueOf(totalAverage));
+            }
 
             Log.i("CGPA ", String.valueOf(cgpa));
             if(cgpa>0)
@@ -154,6 +158,7 @@ public class MainActivity extends AppCompatActivity
             {
                 resultTextView.setText("Please Enter your CPS!!");
             }
+
         }
 
     }
